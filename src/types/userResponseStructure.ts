@@ -6,9 +6,9 @@ export type UserResponseStructure = {
   display_name: string;
   banned_until?: string;
   perks: Perk[];
-  settings: Partial<{
+  settings: {
     "lobby.code.custom": string;
     "name.color.gold": boolean;
     "name.color.match": boolean;
-  }>;
+  };
 };

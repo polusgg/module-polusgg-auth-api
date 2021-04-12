@@ -1,5 +1,5 @@
 {
-  "name": "module-polusauth-api",
+  "name": "@polusgg/module-polusgg-auth-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",

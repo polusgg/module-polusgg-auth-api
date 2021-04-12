@@ -1,11 +1,10 @@
-export enum Perk {
-  LobbyCodeCustom,
-  LobbySizeLarge,
-  NameColorGold,
-  NameColorMatch,
-  GamemodeAll,
-  ServerAccessCreator,
-  CreatorManage,
-  ModKick,
-  ModBan,
-}
+export type Perk =
+  "lobby.code.custom"
+  | "lobby.size.large"
+  | "name.color.gold"
+  | "name.color.match"
+  | "gamemode.all"
+  | "server.access.creator"
+  | "creator.manage"
+  | "mod.kick"
+  | "mod.ban";

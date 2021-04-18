@@ -25,12 +25,14 @@ export class ApiError extends Error {
 
 export class Request<T> {
   //TODO: Change based on cody
-  protected get base(): string { return "https://auth.polus.gg/" }
+  protected get base(): string { return "https://account.polus.gg/" }
   protected url: URL;
   protected headers: Record<string, string> = {};
 
   constructor(path: string) {
-    this.url = new URL(this.base, path);
+    this.url = new URL(path, this.base);
+
+    this.setHeader("Accept", "application/json");
   }
 
   setHeader(key: string, value: string): void {

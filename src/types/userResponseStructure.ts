@@ -1,8 +1,8 @@
 import { Perk } from "./perk";
 
 export type UserResponseStructure = {
-  uuid: string;
-  api_token: string;
+  client_id: string;
+  client_token: string;
   display_name: string;
   banned_until?: string;
   perks: Perk[];

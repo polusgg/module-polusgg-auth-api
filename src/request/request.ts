@@ -41,12 +41,26 @@ export class Request<T> {
     return this.makeRequest("GET");
   }
 
-  async post(): Promise<T> {
-    return this.makeRequest("POST");
+  async put(data?: Record<string, unknown>): Promise<T> {
+    this.setHeader("Content-Type", "application/json");
+
+    return this.makeRequest("PUT", data);
   }
 
-  private async makeRequest(method: string): Promise<T> {
-    const response = await fetch(this.url, { method, headers: this.headers });
+  async post(data?: Record<string, unknown>): Promise<T> {
+    this.setHeader("Content-Type", "application/json");
+
+    return this.makeRequest("POST", data);
+  }
+
+  private async makeRequest(method: string, data?: Record<string, unknown>): Promise<T> {
+    const opts: { method: string; headers: Record<string, string>; body?: string } = { method, headers: this.headers };
+
+    if (data !== undefined) {
+      opts.body = JSON.stringify(data);
+    }
+
+    const response = await fetch(this.url, opts);
 
     if (!response.ok) {
       throw new ApiError(this.url, method, response.status);

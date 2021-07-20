@@ -1,5 +1,6 @@
-import { AuthenticatedRequest } from "../request/authenticatedRequest";
+// import { GameOptionJson } from "@polusgg/plugin-polusgg-api/src/services/gameOptions/gameOption";
 import { UserResponseStructure } from "../types/userResponseStructure";
+import { AuthenticatedRequest } from "../request/authenticatedRequest";
 
 export class Requester {
   private authenticationToken?: string;
@@ -24,6 +25,14 @@ export class Requester {
 
     throw new Error("You must be authenticated to make this request");
   }
+
+  // async setUserGameOptions(uuid: string, options: GameOptionJson): Promise<void> {
+  //   if (this.authenticationToken !== undefined) {
+  //     return await new AuthenticatedRequest<void>(`${this.baseUrl}/api-private/v1/users/${uuid}/options`, this.authenticationToken).put(options);
+  //   }
+
+  //   throw new Error("You must be authenticated to make this request");
+  // }
 
   setAuthenticationToken(token: string): this {
     this.authenticationToken = token;

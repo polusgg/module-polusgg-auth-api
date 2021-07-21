@@ -26,6 +26,7 @@ export class ApiError extends Error {
 export class Request<T> {
   protected url: URL;
   protected headers: Record<string, string> = {};
+  protected body: any;
 
   constructor(path: string) {
     this.url = new URL(path);
@@ -41,26 +42,20 @@ export class Request<T> {
     return this.makeRequest("GET");
   }
 
-  async put(data?: Record<string, unknown>): Promise<T> {
-    this.setHeader("Content-Type", "application/json");
+  async post(body: any): Promise<T> {
+    this.body = body;
 
-    return this.makeRequest("PUT", data);
+    return this.makeRequest("POST");
   }
 
-  async post(data?: Record<string, unknown>): Promise<T> {
-    this.setHeader("Content-Type", "application/json");
+  async put(body: any): Promise<T> {
+    this.body = body;
 
-    return this.makeRequest("POST", data);
+    return this.makeRequest("PUT");
   }
 
-  private async makeRequest(method: string, data?: Record<string, unknown>): Promise<T> {
-    const opts: { method: string; headers: Record<string, string>; body?: string } = { method, headers: this.headers };
-
-    if (data !== undefined) {
-      opts.body = JSON.stringify(data);
-    }
-
-    const response = await fetch(this.url, opts);
+  private async makeRequest(method: string): Promise<T> {
+    const response = await fetch(this.url, { method, headers: this.headers, body: this.body ? JSON.stringify(this.body) : undefined });
 
     if (!response.ok) {
       throw new ApiError(this.url, method, response.status);

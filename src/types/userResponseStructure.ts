@@ -8,7 +8,7 @@ export type UserResponseStructure = {
   banned_until?: string;
   perks: Perk[];
   settings: {
-    "lobby.code.custom": string;
+    "lobby.code.custom": string | null;
     "name.color.gold": boolean;
     "name.color.match": boolean;
   };

@@ -7,4 +7,6 @@ export type Perk =
   | "server.access.creator"
   | "creator.manage"
   | "mod.kick"
-  | "mod.ban";
+  | "mod.ban"
+  | "cosmetic.item.create"
+  | "cosmetic.item.update";

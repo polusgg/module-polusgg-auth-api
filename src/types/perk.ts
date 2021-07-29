@@ -8,5 +8,12 @@ export type Perk =
   | "creator.manage"
   | "mod.kick"
   | "mod.ban"
+  // cosmetics
   | "cosmetic.item.create"
-  | "cosmetic.item.update";
+  | "cosmetic.item.update"
+  | "cosmetic.bundle.create"
+  | "cosmetic.bundle.update"
+  // purchases
+  | "purchase.get.all"
+  | "purchase.authenticate.all"
+  | "purchase.update";

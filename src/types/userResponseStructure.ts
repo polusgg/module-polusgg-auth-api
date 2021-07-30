@@ -13,5 +13,5 @@ export type UserResponseStructure = {
     "name.color.gold": boolean;
     "name.color.match": boolean;
   };
-  options: GameOptionJson[] | null;
+  options: Record<string, GameOptionJson[]> & { gamemode: GameOptionJson, version: number } | null;
 };

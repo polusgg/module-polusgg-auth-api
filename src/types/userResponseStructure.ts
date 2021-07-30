@@ -4,6 +4,7 @@ import { GameOptionJson } from "@polusgg/plugin-polusgg-api/src/services/gameOpt
 export type UserResponseStructure = {
   client_id: string;
   client_token: string;
+  discord_id: string | null;
   display_name: string;
   banned_until?: string;
   perks: Perk[];

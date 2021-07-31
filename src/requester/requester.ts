@@ -18,7 +18,7 @@ export class Requester {
     this.baseUrl = baseUrl;
   }
 
-  async setUserGameOptions(uuid: string, options: GameOptionJson[]): Promise<void> {
+  async setUserGameOptions(uuid: string, options: Record<string, GameOptionJson[]> & { gamemode: GameOptionJson, version: number }): Promise<void> {
     if (this.authenticationToken !== undefined) {
       return await new AuthenticatedRequest<void>(`${this.baseUrl}/api-private/v1/users/${uuid}/options`, this.authenticationToken).put(options);
     }

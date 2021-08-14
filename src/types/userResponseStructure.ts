@@ -6,7 +6,8 @@ export type UserResponseStructure = {
   client_token: string;
   discord_id: string | null;
   display_name: string;
-  banned_until?: string;
+  created_at: string;
+  name_change_available_at: string;
   perks: Perk[];
   settings: {
     "lobby.code.custom": string | null;
@@ -14,4 +15,20 @@ export type UserResponseStructure = {
     "name.color.match": boolean;
   };
   options: Record<string, GameOptionJson[]> & { gamemode: GameOptionJson, version: number } | null;
-};
+} & (
+  {
+    banned: true,
+    banned_until: string | null,
+  } | {
+    banned: false,
+    banned_until: null,
+  }
+) & (
+  {
+    muted: true,
+    muted_until: string | null,
+  } | {
+    muted: false,
+    muted_until: null,
+  }
+);

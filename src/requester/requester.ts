@@ -18,7 +18,7 @@ export class Requester {
     this.baseUrl = baseUrl;
   }
 
-  async setUserGameOptions(uuid: string, options: Record<string, GameOptionJson[]> & { gamemode: GameOptionJson, version: number }): Promise<void> {
+  async setUserGameOptions(uuid: string, options: Record<string, GameOptionJson[]> & { gamemode: GameOptionJson; version: number }): Promise<void> {
     if (this.authenticationToken !== undefined) {
       return await new AuthenticatedRequest<void>(`${this.baseUrl}/api-private/v1/users/${uuid}/options`, this.authenticationToken).put(options);
     }
@@ -29,6 +29,14 @@ export class Requester {
   async getUser(uuid: string): Promise<UserResponseStructure> {
     if (this.authenticationToken !== undefined) {
       return await new AuthenticatedRequest<UserResponseStructure>(`${this.baseUrl}/api-private/v1/users/${uuid}`, this.authenticationToken).get();
+    }
+
+    throw new Error("You must be authenticated to make this request");
+  }
+
+  async getUserByDiscordId(discordId: string): Promise<UserResponseStructure> {
+    if (this.authenticationToken !== undefined) {
+      return await new AuthenticatedRequest<UserResponseStructure>(`${this.baseUrl}/api-private/v1/users/discord/${discordId}`, this.authenticationToken).get();
     }
 
     throw new Error("You must be authenticated to make this request");

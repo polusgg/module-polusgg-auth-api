@@ -10,14 +10,19 @@ export type ApiResponse<T> = {
 } | {
   success: true;
   data: T;
+} | {
+  [key: string]: unknown;
 };
 
 export class ApiError extends Error {
+  public isApiError: true = true;
+
   constructor(
-    protected readonly endpoint: URL,
-    protected readonly method: string,
-    protected readonly responseCode: number,
-    protected readonly error?: string,
+    public readonly endpoint: URL,
+    public readonly method: string,
+    public readonly responseCode: number,
+    public readonly response?: any,
+    public readonly error?: string,
   ) {
     super(error === undefined ? `Encountered response code ${responseCode} when ${method}ing ${endpoint.href}` : `Encountered error when ${method}ing ${endpoint.href}. "${error}" (${responseCode})`);
   }
@@ -58,15 +63,29 @@ export class Request<T> {
     const response = await fetch(this.url, { method, headers: this.headers, body: this.body ? JSON.stringify(this.body) : undefined });
 
     if (!response.ok) {
-      throw new ApiError(this.url, method, response.status);
+      let err2: string;
+
+      try {
+        err2 = await response.text();
+      } catch (err) {
+        throw new ApiError(this.url, method, response.status, undefined, err);
+      }
+
+      throw new ApiError(this.url, method, response.status, JSON.parse(err2));
     }
 
     const body = await response.json() as ApiResponse<T>;
 
-    if (!body.success) {
-      throw new ApiError(this.url, method, response.status, body.data.message);
+    if (body.success === undefined) {
+      return body as any as T;
     }
 
-    return body.data;
+    if (!body.success) {
+      console.log(body);
+
+      throw new ApiError(this.url, method, response.status, body.data, (body.data as any).message);
+    }
+
+    return body.data as T;
   }
 }

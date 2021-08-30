@@ -1,11 +1,11 @@
 import { AuthenticatedRequest } from "../request/authenticatedRequest";
 import { UserResponseStructure } from "../types/userResponseStructure";
-import { GameOptionJson } from "@polusgg/plugin-polusgg-api/src/services/gameOptions/gameOption";
 import { BanResponseStructure } from "../types/banResponseStructure";
 import { MuteResponseStructure } from "../types/muteResponseStructure";
 import { MuteLogStructure } from "../types/muteLogStructure";
 import { BanLogStructure } from "../types/banLogStructure";
 import { KickLogStructure } from "../types/kickLogStructure";
+import { GameOptionJson } from "../types/gameOptionJson";
 
 export class Requester {
   private authenticationToken?: string;

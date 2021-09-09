@@ -1,5 +1,5 @@
 import { Perk } from "./perk";
-import { GameOptionJson } from "./gameOptionJson";
+import { GameOptionJson } from "@polusgg/plugin-polusgg-api/src/services/gameOptions/gameOption";
 
 export type UserResponseStructure = {
   client_id: string;

@@ -39,6 +39,14 @@ export class Requester {
     throw new Error("You must be authenticated to make this request");
   }
 
+  async getUserByName(name: string): Promise<UserResponseStructure> {
+    if (this.authenticationToken !== undefined) {
+      return await new AuthenticatedRequest<UserResponseStructure>(`${this.baseUrl}/api-private/v1/users/name/${name}`, this.authenticationToken).get();
+    }
+
+    throw new Error("You must be authenticated to make this request");
+  }
+
   async getUser(uuid: string): Promise<UserResponseStructure> {
     if (this.authenticationToken !== undefined) {
       return await new AuthenticatedRequest<UserResponseStructure>(`${this.baseUrl}/api-private/v1/users/${uuid}`, this.authenticationToken).get();
